@@ -8,7 +8,7 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <Grid Grid.Row="0" Background="CornflowerBlue">
+        <Grid Grid.Row="0" Background="CornflowerBlue" MouseMove="UIElement_OnMouseMove" >
             <Button VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0" Style="{StaticResource ClosedButtonTemplate}" Click="Close_OnClick"></Button>
             <Button VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,0,35,0" Style="{StaticResource MiniButtonTemplate}" Click="Minstate_OnClick"></Button>
 
