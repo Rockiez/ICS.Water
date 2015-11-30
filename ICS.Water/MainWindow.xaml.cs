@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -15,6 +16,8 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using ICS.Common;
 using ICS.Acquisition;
+using ICS.Models.Com;
+
 namespace ICS.Water
 {
     /// <summary>
@@ -49,23 +52,19 @@ namespace ICS.Water
         }
         private void MainWindow_OnLoaded(object sender, RoutedEventArgs e)
         {
-            var timer = new LazyTimer(_sender =>
-            {
-                var t = (LazyTimer) _sender[0];
-
+         var timer = new Timer(_sender =>{
+                 var value = Global.KL_M4514Provider;
+                 var state = value.CheckSerialPort(value);
                 if (state.Status == RunStatus.Success)
                 {
-                    var Value = Global.KL_M4514Provider;
-                    Value.SetData();
+                    value.SetData();
                     Application.Current.Dispatcher.Invoke(() =>
                     {
-                        WaterLevel.Text = Value.waterLevelValue;
-                        WaterTemperature.Text = Value.waterTemperatureValue;
+                        WaterLevel.Text = value.waterLevelValue;
+                        WaterTemperature.Text = value.waterTemperatureValue;
                     });
                 }
-
-                t.Reset();
-            }, 100, 1000);
+            },null, 100, 1000);
         }
 
 
